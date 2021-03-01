@@ -6,7 +6,7 @@ public class Hospital : MonoBehaviour, IInteractable
 {
     public void Interact()
     {
-        throw new System.NotImplementedException();
+        DropOffSoldier();
     }
 
     private void DropOffSoldier()
