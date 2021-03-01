@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static int _soldiersRescued = 0;
-    public static int _soldiersInHelicopter = 0;
+    private static int _soldiersRescued = 0;
+    private static int _soldiersInHelicopter = 0;
 
     public delegate void UpdateCounter();
     public static event  UpdateCounter _updateSoldierCounter;
+    public static event UpdateCounter _updateRescueCounter;
 
     private void Update()
     {
@@ -27,6 +28,8 @@ public class GameManager : MonoBehaviour
     {
         _soldiersRescued += _soldiersInHelicopter;
         _soldiersInHelicopter = 0;
+        _updateRescueCounter.Invoke();
+        _updateSoldierCounter.Invoke();
     }
 
     public static void GameOver()
@@ -37,6 +40,13 @@ public class GameManager : MonoBehaviour
     public static void GameWon()
     {
 
+    }
+
+    public static int SoldiersRescued
+    {
+        get{
+            return _soldiersRescued;
+        }
     }
 
     public static int SoldiersInHelicopter

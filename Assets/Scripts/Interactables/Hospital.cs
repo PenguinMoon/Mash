@@ -12,6 +12,7 @@ public class Hospital : MonoBehaviour, IInteractable
     private void DropOffSoldier()
     {
         GameManager.DropOffSoldiers();
+        Debug.Log("soldiers dropped off");
     }
 
     // Start is called before the first frame update
