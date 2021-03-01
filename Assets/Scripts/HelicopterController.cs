@@ -17,7 +17,7 @@ public class HelicopterController : MonoBehaviour
         transform.Translate(_inputManager.GetPlayerMovement() * Time.deltaTime);
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         GameObject _gameobject = other.gameObject;
         if (_gameobject == null) return;
