@@ -11,7 +11,14 @@ public class Soldier : MonoBehaviour, IInteractable
 
     private void PickupSoldier()
     {
-        Debug.Log("Soldier picked up");
+        if (GameManager.PickUpSoldier())
+        {
+            Debug.Log("Soldier picked up");
+        }
+        else
+        {
+            Debug.Log("Soldier not picked up");
+        }
     }
 
     // Start is called before the first frame update
