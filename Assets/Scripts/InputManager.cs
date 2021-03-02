@@ -43,4 +43,9 @@ public class InputManager : MonoBehaviour
     {
         return _playerControls.HelicopterActionMapping.Movement.ReadValue<Vector2>();
     }
+
+    public bool GetResetButton()
+    {
+        return _playerControls.HelicopterActionMapping.Reset.triggered;
+    }
 }

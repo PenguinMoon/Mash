@@ -5,7 +5,10 @@ using UnityEngine;
 public class HelicopterController : MonoBehaviour
 {
     private InputManager _inputManager;
-    // Start is called before the first frame update
+
+    [SerializeField]
+    private float _movementSpeed = 3.0f;
+
     void Start()
     {
         _inputManager = InputManager.Instance;
@@ -14,7 +17,12 @@ public class HelicopterController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(_inputManager.GetPlayerMovement() * Time.deltaTime);
+        if (_inputManager.GetResetButton())
+        {
+            GameManager.GameReset();
+            return;
+        }
+        transform.Translate(_inputManager.GetPlayerMovement() * _movementSpeed  * Time.deltaTime);
     }
 
     private void OnTriggerEnter2D(Collider2D other)

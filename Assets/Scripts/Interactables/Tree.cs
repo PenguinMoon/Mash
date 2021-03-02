@@ -12,6 +12,7 @@ public class Tree : MonoBehaviour, IInteractable
     private void TreeCollision()
     {
         Debug.Log("Tree hit");
+        GameManager.HitTree();
     }
 
     // Start is called before the first frame update

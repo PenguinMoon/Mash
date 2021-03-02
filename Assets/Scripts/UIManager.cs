@@ -3,19 +3,39 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject _gameWonPanel;
+
+    [SerializeField]
+    private GameObject _gameOverPanel;
+
+    [SerializeField]
+    private TextMeshProUGUI _leftCounter;
+
     [SerializeField]
     private TextMeshProUGUI _rescueCounter;
 
     [SerializeField]
     private TextMeshProUGUI _helicopterCounter;
-    // Start is called before the first frame update
-    void Start()
+
+    void Awake()
     {
-        GameManager._updateSoldierCounter += UpdateSoldierCounter;
+        GameManager._gameWon += DisplayGameWonScreen;
+        GameManager._gameOver += DisplayGameOverScreen;
+        GameManager._updateLeftCounter += UpdateSoldiersLeftCounter;
+        GameManager._updateHelicopterCounter += UpdateSoldierCounter;
         GameManager._updateRescueCounter += UpdateRescueCounter;
+        _gameWonPanel.SetActive(false);
+        _gameOverPanel.SetActive(false);
+    }
+
+    private void UpdateSoldiersLeftCounter()
+    {
+        _leftCounter.text = GameManager.SoldiersLeft.ToString();
     }
 
     private void UpdateRescueCounter()
@@ -28,9 +48,13 @@ public class UIManager : MonoBehaviour
         _helicopterCounter.text = GameManager.SoldiersInHelicopter.ToString();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void DisplayGameWonScreen()
     {
-        
+        _gameWonPanel.SetActive(true);
+    }
+
+    private void DisplayGameOverScreen()
+    {
+        _gameOverPanel.SetActive(true);
     }
 }
