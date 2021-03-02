@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class Tree : MonoBehaviour, IInteractable
 {
+
+    private AudioSource _audioSource;
+
+    private void Awake()
+    {
+        _audioSource = GetComponent<AudioSource>();
+    }
+
     public void Interact()
     {
         TreeCollision();
@@ -11,6 +19,7 @@ public class Tree : MonoBehaviour, IInteractable
 
     private void TreeCollision()
     {
+        _audioSource.Play();
         Debug.Log("Tree hit");
         GameManager.HitTree();
     }

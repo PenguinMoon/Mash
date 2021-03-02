@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class Hospital : MonoBehaviour, IInteractable
 {
+    private AudioSource _audioSource;
+
+    private void Awake()
+    {
+        _audioSource = GetComponent<AudioSource>();
+    }
+
     public void Interact()
     {
         DropOffSoldier();
@@ -11,8 +18,11 @@ public class Hospital : MonoBehaviour, IInteractable
 
     private void DropOffSoldier()
     {
-        GameManager.DropOffSoldiers();
-        Debug.Log("soldiers dropped off");
+        if (GameManager.DropOffSoldiers())
+        {
+            _audioSource.Play();
+            Debug.Log("soldiers dropped off");
+        }
     }
 
     // Start is called before the first frame update

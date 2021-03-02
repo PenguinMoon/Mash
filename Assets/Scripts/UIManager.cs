@@ -26,6 +26,7 @@ public class UIManager : MonoBehaviour
     {
         GameManager._gameWon += DisplayGameWonScreen;
         GameManager._gameOver += DisplayGameOverScreen;
+        GameManager._gameReset += ClearGameStateScreens;
         GameManager._updateLeftCounter += UpdateSoldiersLeftCounter;
         GameManager._updateHelicopterCounter += UpdateSoldierCounter;
         GameManager._updateRescueCounter += UpdateRescueCounter;
@@ -56,5 +57,11 @@ public class UIManager : MonoBehaviour
     private void DisplayGameOverScreen()
     {
         _gameOverPanel.SetActive(true);
+    }
+
+    private void ClearGameStateScreens()
+    {
+        _gameWonPanel.SetActive(false);
+        _gameOverPanel.SetActive(false);
     }
 }

@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class Soldier : MonoBehaviour, IInteractable
 {
+    private AudioSource _audioSource;
+
+    private void Awake()
+    {
+        _audioSource = GetComponent<AudioSource>();
+    }
+
     public void Interact()
     { 
         PickupSoldier();
@@ -13,7 +20,9 @@ public class Soldier : MonoBehaviour, IInteractable
     {
         if (GameManager.PickUpSoldier())
         {
+
             Debug.Log("Soldier picked up");
+            _audioSource.Play();
         }
         else
         {

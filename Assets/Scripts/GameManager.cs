@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
     public delegate void GameEvent();
     public static event GameEvent _gameWon;
     public static event GameEvent _gameOver;
+    public static event GameEvent _gameReset;
 
     private void Awake()
     {
@@ -76,6 +77,11 @@ public class GameManager : MonoBehaviour
     {
         InitializeGame();
         StartGame();
+        if(_gameReset != null) _gameReset.Invoke();
+        else
+        {
+            Debug.Log("_gameReset is null or has nothing to invoke");
+        }
     }
 
     public static void HitTree()
@@ -94,16 +100,21 @@ public class GameManager : MonoBehaviour
         return true;
     }
 
-    public static void DropOffSoldiers()
+    public static bool DropOffSoldiers()
     {
-        _soldiersRescued += _soldiersInHelicopter;
-        _soldiersInHelicopter = 0;
-        _updateRescueCounter.Invoke();
-        _updateHelicopterCounter.Invoke();
-        if (_soldiersRescued >= _totalSoldiers)
+        if (_soldiersInHelicopter > 0)
         {
-            GameWon();
+            _soldiersRescued += _soldiersInHelicopter;
+            _soldiersInHelicopter = 0;
+            _updateRescueCounter.Invoke();
+            _updateHelicopterCounter.Invoke();
+            if (_soldiersRescued >= _totalSoldiers)
+            {
+                GameWon();
+            }
+            return true;
         }
+        return false;
     }
 
     public static int SoldiersLeft
