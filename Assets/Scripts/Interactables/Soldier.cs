@@ -5,10 +5,14 @@ using UnityEngine;
 public class Soldier : MonoBehaviour, IInteractable
 {
     private AudioSource _audioSource;
+    private BoxCollider2D _collider;
+    private Vector3 _startingPosition;
 
     private void Awake()
     {
         _audioSource = GetComponent<AudioSource>();
+        _collider = GetComponent<BoxCollider2D>();
+        _startingPosition = transform.position;
     }
 
     public void Interact()
@@ -23,6 +27,7 @@ public class Soldier : MonoBehaviour, IInteractable
 
             Debug.Log("Soldier picked up");
             _audioSource.Play();
+            StartCoroutine(HideSoldier());
         }
         else
         {
@@ -30,15 +35,10 @@ public class Soldier : MonoBehaviour, IInteractable
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
+    IEnumerator HideSoldier()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        transform.position = new Vector3(float.MaxValue, 0, 0);
+        yield return new WaitForSeconds(3);
+        transform.position = _startingPosition;
     }
 }

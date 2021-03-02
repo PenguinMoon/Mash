@@ -5,24 +5,38 @@ using UnityEngine;
 public class HelicopterController : MonoBehaviour
 {
     private InputManager _inputManager;
+    private Rigidbody2D _rigidbody2D;
+    private Vector2 _startingPosition;
 
     [SerializeField]
-    private float _movementSpeed = 3.0f;
+    private float _movementSpeed = 3.5f;
 
     void Start()
     {
+        _startingPosition = transform.position;
         _inputManager = InputManager.Instance;
+        _rigidbody2D = GetComponent<Rigidbody2D>();
+        GameManager._gameReset += Reset;
+    }
+
+    public void Reset()
+    {
+        transform.position = _startingPosition;
     }
 
     // Update is called once per frame
     void Update()
     {
+
         if (_inputManager.GetResetButton())
         {
             GameManager.GameReset();
             return;
         }
-        transform.Translate(_inputManager.GetPlayerMovement() * _movementSpeed  * Time.deltaTime);
+        if (GameManager.CurrentGameState == GameState.Running)
+        {
+            transform.Translate(_inputManager.GetPlayerMovement() * _movementSpeed * Time.deltaTime);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)

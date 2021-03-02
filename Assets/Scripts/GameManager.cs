@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-enum GameState
+public enum GameState
 {
     Running,
     Victory,
@@ -115,6 +115,11 @@ public class GameManager : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    public static GameState CurrentGameState
+    {
+        get { return _gameState; }
     }
 
     public static int SoldiersLeft
